@@ -1,0 +1,53 @@
+/*
+Structure of Node class is:
+
+class Node {
+    int data;
+    Node left, right;
+    
+    public Node(int data){
+        this.data = data;
+    }
+}
+*/
+
+class Solution
+{
+    public int kthAncestor(Node root, int k, int node)
+    {
+        ArrayList<Integer> list = new ArrayList<>();
+         boolean check = helper(root, list, node);
+         int ans = 0;
+         int i = list.size()-1;
+         int j = 0;
+         while(i>=0){
+             if(j==k){
+                 break;
+             }
+             ans = list.get(i);
+             j++;
+             i--;
+         }
+         if(i<0){
+             return -1;
+         }
+        return list.get(i);
+    }
+    
+    public boolean helper(Node root, ArrayList<Integer> list , int node){
+        if(root == null){
+            return false;
+        }
+        list.add(root.data);
+        if(list.get(list.size()-1)==node){
+            return true;
+        }
+        if(helper(root.left,list,node)||helper(root.right,list,node)){
+            return true;
+        }
+        else{
+            list.remove(list.size()-1);
+            return false;
+        }
+    }
+}
