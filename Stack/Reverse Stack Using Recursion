@@ -1,0 +1,33 @@
+/*
+You are given a stack St. You have to reverse the stack using recursion.
+
+Example:
+Input:
+St = {3,2,1,7,6}
+Output:
+{6,7,1,2,3}
+Explanation:
+Input stack after reversing will look like the stack in the output.
+*/
+
+class Solution
+{ 
+    static void reverse(Stack<Integer> stack){
+        if(!stack.isEmpty()){
+            int poppedElement = stack.pop();
+            reverse(stack);
+            insertAtBottom(stack, poppedElement);
+        }
+    }
+
+    static void insertAtBottom(Stack<Integer> stack,int poppedElement){
+       if(stack.isEmpty()){
+           stack.push(poppedElement);
+           return;
+       } else{
+           int x = stack.pop();
+           insertAtBottom(stack, poppedElement);
+           stack.push(x);
+       }
+    }
+}
