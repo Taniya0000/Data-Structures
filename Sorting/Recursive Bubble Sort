@@ -1,0 +1,25 @@
+import java.util.Arrays;
+
+public class RecursiveInsertionSort {
+
+    public static void main(String[] args){
+        int[] array = {5,4,3,2,1};
+        recursiveInsertionSort(array, array.length);
+        System.out.println(Arrays.toString(array));
+    }
+
+
+    public static void recursiveInsertionSort(int[] array, int n){
+        if(n<=1)
+            return;
+        recursiveInsertionSort(array, n-1);
+        int temp = array[n-1];
+        int j = n-2;
+
+        while ((j>=0) && (array[j] > temp)){
+            array[j+1] = array[j];
+            j--;
+        }
+        array[j+1] = temp;
+    }
+}
