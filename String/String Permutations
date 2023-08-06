@@ -1,0 +1,38 @@
+/*
+Given a string S. The task is to find all permutations (need not be different) of a given string.
+Input:
+S = AAA
+Output: AAA AAA AAA AAA AAA AAA
+Explanation: There are total 6 permutations, as given in the output.
+*/
+
+class Solution
+{
+    public ArrayList<String> permutation(String S)
+    {
+         ArrayList<String> list = new ArrayList<>();
+        HashSet<String> set = new HashSet<>();
+       
+        StringBuilder traverse = new StringBuilder(S);
+ 
+        GenerateAllPermutation(S, traverse, list, "");
+        Collections.sort(list);
+        return list;
+    }
+    
+    public void GenerateAllPermutation (String input, StringBuilder traverse, 
+            ArrayList<String> list, String output){
+        if(output.length() == input.length()) {
+            list.add(output);
+            return ;
+        }
+        for(int i=0; i<input.length(); i++ ){
+            if(traverse.charAt(i) != '#'){
+                traverse.setCharAt(i, '#');
+                GenerateAllPermutation(input, traverse, list, output+ input.charAt(i));
+                traverse.setCharAt(i, input.charAt(i));
+            }
+        }   
+    }
+	   
+}
