@@ -1,0 +1,76 @@
+/*
+Given two numbers as strings s1 and s2. Calculate their Product.
+Note: The numbers can be negative and You are not allowed to use any built-in function 
+or convert the strings to integers. There can be zeros in the begining of the numbers.
+Example 1:
+Input:
+s1 = "0033"
+s2 = "2"
+Output:
+66
+*/
+
+class Solution
+{
+    public String multiplyStrings(String num1,String num2)
+    {
+        int sign1 = 1;
+        int sign2 = 1;
+        if(num1.equals("0") || num2.equals("0")){
+            return "0";
+        }
+        if(num1.startsWith("-")){
+            sign1 = -1;
+            num1 = num1.replaceFirst("-","");
+        }
+        if(num2.startsWith("-")){
+            sign2 = -1;
+            num2 = num2.replaceFirst("-","");
+        }
+        int l1 = num1.length();
+        int l2 = num2.length();
+        int[] result = new int[l1+l2];
+
+        int i = l2-1;
+        int powerFactor = 0;
+        while (i>=0){
+            int iVal = num2.charAt(i) - '0';
+            i--;
+
+            int j = l1-1;
+            int k = result.length - 1 - powerFactor;
+            int carry = 0;
+
+            while (j >= 0 || carry != 0){
+                int jVal = j>=0? num1.charAt(j) - '0': 0;
+                j--;
+
+                int product = iVal * jVal + carry + result[k];
+                result[k] = product % 10;
+                carry = product/10;
+                k--;
+            }
+            powerFactor++;
+        }
+
+        // Management of leading zero using general method
+        StringBuilder str = new StringBuilder();
+
+        if((sign1 == -1) && (sign2 == 1)){
+            str.append("-");
+        } else if((sign2 == -1) && (sign1 == 1)){
+            str.append("-");
+        }
+        boolean flag = false;
+        for(int val : result){
+            if((val == 0) && (flag == false)){
+                // leading zeros
+                continue;
+            } else{
+                flag = true;
+                str.append(val);
+            }
+        }
+        return str.toString();
+    }
+}
