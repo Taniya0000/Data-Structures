@@ -1,0 +1,17 @@
+public static void printCorner(Node node)
+    {
+       Queue<Node> q = new LinkedList<>();
+        q.add(node); // add 1st node
+        
+        while(q.size() > 0) {
+            int n = q.size();
+            for(int i=0; i<n; i++) {   // from i=0 to i=n-1
+                Node curr = q.poll();
+                if(i==0 || i==n-1) {   // i=0 for leftmost, i=n-1 for rightmost
+                    System.out.print(curr.data+" ");
+                }
+                if(curr.left != null) q.add(curr.left);
+                if(curr.right != null) q.add(curr.right);
+            }
+        }
+    }
